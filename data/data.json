@@ -36,6 +36,17 @@
                 "McCloskey":11,
                 "Apples":200
             }
+        },
+        "Orange":{
+            "Democrats":{
+                "Stanley":1000,
+                "Haze":5002
+            },
+            "Republicans":{
+                "Ashbrook":2,
+                "McCloskey":11,
+                "Kingston":200
+            }
         }
     }
 }

@@ -16,6 +16,8 @@ app.listen(port, () => {
 })
 
 var data = require('./data/data.json'); 
+
+// input json object, output cadidate with most votes
 function getWinner(candidates){
   var votes = 0;
   var winner = '';
@@ -28,7 +30,9 @@ function getWinner(candidates){
   return {[winner]:votes};
 }
 
-// per state? parameter as state?
+// My question for these would be did you prefer 
+// to return winners by a specific state/county or all states?
+
 app.get('/getFirstPrimaryCandidatePerCounty', (req, res) => {
   // return the winning primary candidates in each county
   // loop state, county
@@ -49,11 +53,11 @@ app.get('/getFirstPrimaryCandidatePerCounty', (req, res) => {
       countyTemp = {[county]:winner};
       countyWinners = Object.assign(countyWinners, countyTemp);
     }
+    allCandidates = {};
   }
 
   res.send(countyWinners);
 });
-
 
 app.get('/getFirstPrimaryCandidatePerState', (req, res) => {
   // return the winning primary candidates in each state
