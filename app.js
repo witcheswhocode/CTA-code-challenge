@@ -25,16 +25,18 @@ function getWinner(candidates){
       votes = candidates[candidate];
     }
   }
-  return {winner:votes};
+  return {[winner]:votes};
 }
+
 // per state? parameter as state?
 app.get('/getFirstPrimaryCandidatePerCounty', (req, res) => {
-  var allCandidates = {};
   // return the winning primary candidates in each county
   // loop state, county
-  // combine all candidates from each party, sort by candidates, get first
+  // combine all candidates from each party, get first
   // return county, 1st candidate, number of votes
 
+  var allCandidates = {};
+  var countyWinners = {};
   for (var state of Object.keys(data)) {
     var stateData = data[state];
     for (var county of Object.keys(stateData)) {
@@ -44,10 +46,12 @@ app.get('/getFirstPrimaryCandidatePerCounty', (req, res) => {
         allCandidates = Object.assign(allCandidates, partyData);
       }
       var winner = getWinner(allCandidates);
+      countyTemp = {[county]:winner};
+      countyWinners = Object.assign(countyWinners, countyTemp);
     }
   }
 
-  res.send(winner);
+  res.send(countyWinners);
 });
 
 
