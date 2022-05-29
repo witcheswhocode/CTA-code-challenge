@@ -15,12 +15,12 @@
     "California":{
         "Sacramento":{
             "Democrats":{
-                "Humphrey":100,
+                "O'Brien":500,
                 "McGovern":50
             },
             "Republicans":{
                 "Nixon":200,
-                "Ashbrook":2,
+                "Redwood":2000,
                 "McCloskey":1
             }
         }
@@ -28,13 +28,13 @@
     "Florida":{
         "Broward":{
             "Democrats":{
-                "Humphrey":100,
-                "McGovern":50
+                "Dolphin":1000,
+                "Doodle":50
             },
             "Republicans":{
                 "Ashbrook":2,
-                "McCloskey":1,
-                "Nixon":200
+                "McCloskey":11,
+                "Apples":200
             }
         }
     }

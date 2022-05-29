@@ -57,10 +57,25 @@ app.get('/getFirstPrimaryCandidatePerCounty', (req, res) => {
 
 app.get('/getFirstPrimaryCandidatePerState', (req, res) => {
   // return the winning primary candidates in each state
-  // loop state, county
-  // combine all candidates from each party, sort by candidates, get first
+  // loop state, county, party then get first
   // return state, 1st candidate, party, number of votes
-  res.json(data);
+  var allCandidates = {};
+  var stateWinners = {};
+  for (var state of Object.keys(data)) {
+    var stateData = data[state];
+    for (var county of Object.keys(stateData)) {
+      var countyData = stateData[county]
+      for (var party of Object.keys(countyData)) {
+        var partyData = countyData[party];
+        allCandidates = Object.assign(allCandidates, partyData);
+      }
+    }
+    var winner = getWinner(allCandidates);
+    stateTemp = {[state]:winner};
+    stateWinners = Object.assign(stateWinners, stateTemp);
+    allCandidates = {};
+  }
+  res.json(stateWinners);
 });
 
 app.get('/getFirstPrimaryCandidateOverall', (req, res) => {
