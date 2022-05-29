@@ -16,10 +16,20 @@ app.listen(port, () => {
 })
 
 var data = require('./data/data.json'); 
-
+function getWinner(candidates){
+  var votes = 0;
+  var winner = '';
+  for (var candidate of Object.keys(candidates)) {
+    if (votes < candidates[candidate]){
+      winner = candidate;
+      votes = candidates[candidate];
+    }
+  }
+  return {winner:votes};
+}
 // per state? parameter as state?
 app.get('/getFirstPrimaryCandidatePerCounty', (req, res) => {
-  var jsonArr = '';
+  var allCandidates = {};
   // return the winning primary candidates in each county
   // loop state, county
   // combine all candidates from each party, sort by candidates, get first
@@ -31,11 +41,13 @@ app.get('/getFirstPrimaryCandidatePerCounty', (req, res) => {
       var countyData = stateData[county]
       for (var party of Object.keys(countyData)) {
         var partyData = countyData[party];
-        jsonArr = party;
+        allCandidates = Object.assign(allCandidates, partyData);
       }
+      var winner = getWinner(allCandidates);
     }
   }
-  res.send(jsonArr);
+
+  res.send(winner);
 });
 
 
