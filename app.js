@@ -81,7 +81,20 @@ app.get('/getFirstPrimaryCandidatePerState', (req, res) => {
 app.get('/getFirstPrimaryCandidateOverall', (req, res) => {
   // return the winning primary candidates overall
   // return 1st candidate 
-  res.json(data);
+  var allCandidates = {};
+  for (var state of Object.keys(data)) {
+    var stateData = data[state];
+    for (var county of Object.keys(stateData)) {
+      var countyData = stateData[county]
+      for (var party of Object.keys(countyData)) {
+        var partyData = countyData[party];
+        allCandidates = Object.assign(allCandidates, partyData);
+      }
+    }
+  }
+  var winner = getWinner(allCandidates);
+
+  res.json(winner);
 });
 
 app.get('/', (req, res) => {
