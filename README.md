@@ -1,4 +1,4 @@
-# CTA Code Test - Election API
+# Code Test - Election API
 
 # How to run on your system
 1. npm install
